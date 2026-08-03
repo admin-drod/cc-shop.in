@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -59,7 +60,6 @@
             animation: pulse-yellow 2s infinite;
         }
 
-        /* Shining shine effect overlay */
         .btn-main::after {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: linear-gradient(60deg, transparent, rgba(255,255,255,0.3), transparent);
@@ -85,6 +85,25 @@
         .notice-title { color: #ffcc00; font-size: 16px; font-weight: 800; letter-spacing: 2px; margin-bottom: 8px; text-shadow: 0 0 8px rgba(255, 204, 0, 0.5); }
         .notice-text { color: #cccccc; font-size: 13.5px; line-height: 1.5; font-weight: 500; }
 
+        /* Popup Modal Styles */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); z-index: 200; align-items: center; justify-content: center;
+        }
+        .modal-content {
+            background: #151515; border: 1.5px solid #ff1a1a; padding: 25px; border-radius: 16px;
+            width: 85%; max-width: 380px; text-align: center; box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+        }
+        .modal-title { font-size: 22px; font-weight: bold; margin-bottom: 12px; color: #fff; }
+        .modal-msg { font-size: 16px; color: #bbb; margin-bottom: 25px; line-height: 1.4; }
+        .btn-modal-back {
+            background: linear-gradient(180deg, #ff1a1a 0%, #b30000 100%);
+            color: #fff; font-size: 16px; font-weight: bold; padding: 12px 30px; border: none;
+            border-radius: 10px; cursor: pointer; box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+            transition: transform 0.2s; display: inline-block; width: 100%;
+        }
+        .btn-modal-back:active { transform: scale(0.95); }
+
         /* Store General Styles */
         .glow-white { color: #fff; text-shadow: 0 0 8px #fff, 0 0 15px #fff; font-weight: bold; margin: 8px 0; }
         .online-tag { color: #00ff66; text-shadow: 0 0 10px #00ff66; font-weight: bold; display: inline-block; margin-bottom: 15px; }
@@ -94,7 +113,7 @@
         .btn-white { background: #ffffff; color: #000; }
         .btn-support { background: #111; border: 1px solid #333; color: #fff; }
         .card { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: center; }
-        .media-banner { width: 100%; height: 180px; border-radius: 8px; background: #2a2a2a; object-fit: cover; }
+        .media-banner { width: 100%; height: 190px; border-radius: 8px; background: #2a2a2a; object-fit: cover; }
         .plan-box { background: #222; border: 1px solid #444; border-radius: 8px; padding: 12px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center; }
         
         /* Chat Modal */
@@ -108,7 +127,16 @@
 
     <div class="welcome-bg"></div>
 
-    <!-- PAGE 1: Welcome Screen (Exactly like Screenshot) -->
+    <!-- CC Store Popup Modal -->
+    <div id="ccPopup" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-title">Sorry Bro 😐</div>
+            <div class="modal-msg">Cards Are Currently unavailable.</div>
+            <button class="btn-modal-back" onclick="closeCCPopup()">BACK</button>
+        </div>
+    </div>
+
+    <!-- PAGE 1: Welcome Screen -->
     <div id="page1" class="page active">
         <div class="top-nav">
             <div class="nav-title">🛒 Welcome To Store</div>
@@ -118,7 +146,7 @@
         <div class="hero-title">Welcome To <span>Store</span></div>
         <div class="divider"><span>🛍️</span></div>
 
-        <button class="btn-main btn-cc-glow" onclick="showPage('page2')">
+        <button class="btn-main btn-cc-glow" onclick="openCCPopup()">
             <span>🛒</span> <span>|</span> <span>CC STORE</span>
         </button>
 
@@ -132,22 +160,19 @@
         </div>
     </div>
 
-    <!-- PAGE 2: CC Store (Aapka Main Purana Shop Page) -->
-    <div id="page2" class="page">
-        <h3 style="margin: 20px 0;">CC STORE</h3>
-        <p style="color: #aaa; margin: 20px 0;">Product cards & original shop items load here...</p>
-        <button class="btn-sub btn-white" onclick="showPage('page1')">Back</button>
-    </div>
-
-    <!-- PAGE 3: PANEL STORE DASHBOARD -->
+    <!-- PAGE 2: PANEL STORE DASHBOARD -->
     <div id="pagePanel" class="page">
         <h2 style="margin-bottom: 20px;">PANEL STORE</h2>
 
-        <!-- Dashboard 1 -->
+        <!-- Dashboard 1 (Video ya Photo Media) -->
         <div class="card">
+            <!-- Video lagane ke liye (src me mp4 link daalein) -->
             <video class="media-banner" controls poster="assets/images/banner_1.jpg">
                 <source src="assets/videos/panel1.mp4" type="video/mp4">
             </video>
+            <!-- Single Image/Photo lagana ho toh niche wali line use kar sakte hain -->
+            <!-- <img src="assets/images/banner_1.jpg" class="media-banner" alt="Dashboard 1"> -->
+
             <div class="glow-white">Root Phone Panel [100% Antiban]<br><small>ALL DEVICE WORKING</small></div>
             <button class="btn-sub btn-green" onclick="showCheckout('Root Phone Panel')">Buy Now</button>
         </div>
@@ -164,7 +189,7 @@
         <!-- Dashboard 3 -->
         <div class="card">
             <video class="media-banner" controls poster="assets/images/banner_3.jpg">
-                <source src="assets/videos/banner_3.jpg">
+                <source src="assets/videos/panel3.mp4" type="video/mp4">
             </video>
             <div class="glow-white">[Non Root PaneL]<br><small>ANTIBAN</small></div>
             <button class="btn-sub btn-green" onclick="showCheckout('Non Root Panel')">Buy Now</button>
@@ -181,7 +206,7 @@
 
         <!-- Dashboard 5: FREE -->
         <div class="card">
-            <img src="assets/images/banner_1.jpg" class="media-banner" alt="Free Panel">
+            <img src="assets/images/banner_free.jpg" class="media-banner" alt="Free Panel">
             <div class="glow-white">[Antiban Hologram Location For Free.]</div>
             <a href="https://www.mediafire.com" target="_blank" class="btn-sub btn-green">Free</a>
         </div>
@@ -189,7 +214,7 @@
         <button class="btn-sub btn-white" onclick="showPage('page1')">Back</button>
     </div>
 
-    <!-- PAGE 4: CHECKOUT PAGE -->
+    <!-- PAGE 3: CHECKOUT PAGE -->
     <div id="pageCheckout" class="page">
         <div style="text-align: left;">
             <span class="online-tag">● Online</span>
@@ -244,6 +269,14 @@
             document.getElementById(pageId).classList.add('active');
         }
 
+        // Popup Handlers
+        function openCCPopup() {
+            document.getElementById('ccPopup').style.display = 'flex';
+        }
+        function closeCCPopup() {
+            document.getElementById('ccPopup').style.display = 'none';
+        }
+
         function showCheckout(title) {
             document.getElementById('selectedPanelTitle').innerText = title;
             showPage('pageCheckout');
@@ -279,4 +312,5 @@
         }
     </script>
 </body>
-</html>
+    </html>
+                
