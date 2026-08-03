@@ -3,94 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>shop.in [cc]</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Eklavya Mods Store</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0d0d0d; color: #fff; text-align: center; }
+        
+        .page { display: none; padding: 20px; max-width: 500px; margin: 0 auto; }
+        .active { display: block; }
+
+        /* Glowing & Neon Texts */
+        .glow-white { color: #fff; text-shadow: 0 0 8px #fff, 0 0 15px #fff; font-weight: bold; margin: 8px 0; }
+        .online-tag { color: #00ff66; text-shadow: 0 0 10px #00ff66; font-weight: bold; display: inline-block; margin-bottom: 15px; }
+
+        /* Buttons */
+        .btn { width: 100%; padding: 12px; margin: 8px 0; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; text-decoration: none; display: block; }
+        .btn-cc { background: #e60000; color: white; }
+        .btn-yellow { background: #ffcc00; color: #000; font-weight: 800; }
+        .btn-green { background: #00cc44; color: white; }
+        .btn-blue-glow { background: #0088ff; color: white; box-shadow: 0 0 10px #0088ff; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; }
+        .btn-white { background: #ffffff; color: #000; }
+        .btn-support { background: #111; border: 1px solid #333; color: #fff; }
+
+        /* Cards & Dashboards */
+        .card { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: center; }
+        .media-banner { width: 100%; height: 180px; border-radius: 8px; background: #2a2a2a; object-fit: cover; }
+        
+        .plan-box { background: #222; border: 1px solid #444; border-radius: 8px; padding: 12px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center; }
+
+        /* Chat Modal */
+        .chat-modal { display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #141414; border-top: 2px solid #333; padding: 15px; z-index: 100; }
+        .chat-box { height: 150px; overflow-y: auto; background: #000; border-radius: 5px; padding: 10px; text-align: left; margin-bottom: 10px; font-size: 14px; }
+        .chat-msg { margin: 5px 0; padding: 5px 8px; border-radius: 4px; background: #222; width: fit-content; }
+        .chat-bot { background: #0055ff; color: white; }
+    </style>
 </head>
 <body>
 
-    <!-- Customer Support Warning Popup -->
-    <div id="supportPopup" class="popup-overlay" style="display: none;">
-        <div class="popup-box support-popup-box">
-            <h3>Notice</h3>
-            <p class="popup-msg">Plz ,First purchase product</p>
-            <button onclick="closeSupportPopup()" class="btn-ok">OK</button>
-        </div>
-    </div>
-
     <!-- PAGE 1: Welcome Screen -->
     <div id="page1" class="page active">
-        <h1 class="welcome-text">Welcome To CardXer</h1>
-        <div class="admin-shop-box">Admin shop</div>
-
-        <div class="dashboard-instructions">
-            <h3>How To Buy Products</h3>
-            <p>1. Click Buy Now</p>
-            <p>2. Fill Your Gmail ID<br><small>[Because I send product to your Gmail]</small></p>
-            <p>3. Click Enter & Pay</p>
-            <p>4. Complete Payment</p>
-            <p>5. And wait 1 to 2 hours</p>
-        </div>
-
-        <button class="next-btn" onclick="goToNextPage()">NEXT</button>
+        <h2 style="margin-top: 40px; margin-bottom: 30px;">Welcome To Store</h2>
+        <button class="btn btn-cc" onclick="showPage('page2')">CC STORE</button>
+        <button class="btn btn-yellow" onclick="showPage('pagePanel')">PANEL STORE</button>
     </div>
 
-    <!-- PAGE 2: Main Shop Dashboard -->
+    <!-- PAGE 2: CC Store -->
     <div id="page2" class="page">
-        <div class="top-bar">
-            <div class="online-indicator">
-                <span class="green-dot"></span> ONLINE
-            </div>
-        </div>
-        <div class="products-container" id="productsGrid"></div>
+        <h3>CC STORE</h3>
+        <p style="color: #aaa; margin: 20px 0;">Product cards & items here...</p>
+        <button class="btn btn-white" onclick="showPage('page1')">Back</button>
     </div>
 
-    <!-- PAGE 3: Checkout Page -->
-    <div id="page3" class="page">
-        <div class="top-bar">
-            <div class="online-indicator">
-                <span class="green-dot"></span> ONLINE
-            </div>
+    <!-- PAGE 3: PANEL STORE DASHBOARD -->
+    <div id="pagePanel" class="page">
+        <h2>PANEL STORE</h2>
+        <br>
+
+        <!-- Dashboard 1 -->
+        <div class="card">
+            <video class="media-banner" controls poster="assets/images/banner_1.jpg">
+                <source src="assets/videos/panel1.mp4" type="video/mp4">
+            </video>
+            <div class="glow-white">Root Phone Panel [100% Antiban]<br><small>ALL DEVICE WORKING</small></div>
+            <button class="btn btn-green" onclick="showCheckout('Root Phone Panel')">Buy Now</button>
         </div>
 
-        <div class="checkout-card">
-            <h2 id="checkoutPriceProfit" class="glowing-price"></h2>
+        <!-- Dashboard 2 -->
+        <div class="card">
+            <video class="media-banner" controls poster="assets/images/banner_2.jpg">
+                <source src="assets/videos/panel2.mp4" type="video/mp4">
+            </video>
+            <div class="glow-white">Mobile Emulator PaneL<br><small>[Support all device] [Antiban]</small></div>
+            <button class="btn btn-green" onclick="showCheckout('Mobile Emulator Panel')">Buy Now</button>
+        </div>
+
+        <!-- Dashboard 3 -->
+        <div class="card">
+            <video class="media-banner" controls poster="assets/images/banner_3.jpg">
+                <source src="assets/videos/banner_3.jpg">
+            </video>
+            <div class="glow-white">[Non Root PaneL]<br><small>ANTIBAN</small></div>
+            <button class="btn btn-green" onclick="showCheckout('Non Root Panel')">Buy Now</button>
+        </div>
+
+        <!-- Dashboard 4 -->
+        <div class="card">
+            <video class="media-banner" controls poster="assets/images/banner_4.jpg">
+                <source src="assets/videos/panel4.mp4" type="video/mp4">
+            </video>
+            <div class="glow-white">Emulator PaneL [100%]<br><small>ANTIBAN</small></div>
+            <button class="btn btn-green" onclick="showCheckout('Emulator Panel')">Buy Now</button>
+        </div>
+
+        <!-- Dashboard 5: FREE -->
+        <div class="card">
+            <img src="assets/images/banner_1.jpg" class="media-banner" alt="Free Panel">
+            <div class="glow-white">[Antiban Hologram Location For Free.]</div>
+            <a href="https://www.mediafire.com" target="_blank" class="btn btn-green">Free</a>
+        </div>
+
+        <button class="btn btn-white" onclick="showPage('page1')">Back</button>
+    </div>
+
+    <!-- PAGE 4: CHECKOUT PAGE -->
+    <div id="pageCheckout" class="page">
+        <div style="text-align: left;">
+            <span class="online-tag">● Online</span>
+        </div>
+
+        <h3 id="selectedPanelTitle" style="margin-bottom: 15px;">Panel Checkout</h3>
+
+        <!-- Pricing Boxes -->
+        <div class="plan-box">
+            <span>1 Day - <b>Rs-80</b></span>
+            <button class="btn-blue-glow" onclick="payUPI(80)">Purchase Now</button>
+        </div>
+        <div class="plan-box">
+            <span>5 Day - <b>Rs-130</b></span>
+            <button class="btn-blue-glow" onclick="payUPI(130)">Purchase Now</button>
+        </div>
+        <div class="plan-box">
+            <span>15 Day - <b>Rs-215</b></span>
+            <button class="btn-blue-glow" onclick="payUPI(215)">Purchase Now</button>
+        </div>
+        <div class="plan-box">
+            <span>30 Day - <b>Rs-400</b></span>
+            <button class="btn-blue-glow" onclick="payUPI(400)">Purchase Now</button>
+        </div>
+
+        <br>
+        <!-- Action Buttons -->
+        <a href="https://t.me/Error_files_og/130" target="_blank" class="btn btn-white">Setup Video</a>
+        <button class="btn btn-support" onclick="openChat()">Customer Support</button>
+        <button class="btn btn-white" onclick="showPage('pagePanel')">Back</button>
+    </div>
+
+    <!-- CHAT BOX MODAL -->
+    <div id="chatModal" class="chat-modal">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <b>Support Chat</b>
+            <span style="cursor:pointer;" onclick="closeChat()">✖</span>
+        </div>
+        <div id="chatBox" class="chat-box">
+            <div class="chat-msg chat-bot">Apna problem batao English mai.</div>
+        </div>
+        <div style="display:flex; gap: 5px;">
+            <input type="text" id="userMsg" placeholder="Type your issue..." style="flex:1; padding: 8px; border-radius: 4px; border: 1px solid #333; background: #222; color: #fff;">
+            <button onclick="sendMsg()" style="padding: 8px 15px; background: #00cc44; border: none; color: white; border-radius: 4px;">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Page Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function showCheckout(title) {
+            document.getElementById('selectedPanelTitle').innerText = title;
+            showPage('pageCheckout');
+        }
+
+        // Auto Payment Redirection (UPI)
+        function payUPI(amount) {
+            var upiID = "9354505161@ybl"; // Updated UPI ID
+            var name = "Eklavya Store";
+            var url = "upi://pay?pa=" + upiID + "&pn=" + encodeURIComponent(name) + "&am=" + amount + "&cu=INR";
+            window.location.href = url;
+        }
+
+        // Chat Box Functionality
+        function openChat() {
+            document.getElementById('chatModal').style.display = 'block';
+        }
+        function closeChat() {
+            document.getElementById('chatModal').style.display = 'none';
+        }
+        function sendMsg() {
+            var txt = document.getElementById('userMsg').value;
+            if(txt.trim() === "") return;
             
-            <div class="input-group">
-                <label for="userGmail">Enter Your Gmail ID:</label>
-                <input type="email" id="userGmail" placeholder="example@gmail.com" required>
-            </div>
-
-            <p class="receive-note">Product will be received on your Gmail within 1-2 hours.</p>
-
-            <button id="payEnterBtn" class="blue-glow-btn" onclick="processPayment()">ENTER & PAY</button>
-            <button class="back-btn" onclick="backToShop()">Back to Shop</button>
-
-            <!-- Red Glowing Customer Support Button -->
-            <button class="customer-support-btn" onclick="openCustomerSupport()">CUSTOMER SUPPORT</button>
-        </div>
-    </div>
-
-    <!-- PAGE 3.5: Loading / Confirming Payment Page -->
-    <div id="pageLoading" class="page">
-        <div class="loading-box">
-            <div class="spinner"></div>
-            <h2>Confirming Payment...</h2>
-            <p>Kripya payment complete karein, verification me lagbhag 1 minute lag sakta hai.</p>
-            <p class="go-payment-text">GO AND PAYMENT</p>
-        </div>
-    </div>
-
-    <!-- PAGE 4: Success Page -->
-    <div id="page4" class="page">
-        <div class="success-box">
-            <div class="success-icon">✓</div>
-            <h2>Successfully Purchased</h2>
-            <p>Wait Few Hours. Product will be sent to your Gmail.</p>
-            <button class="next-btn" onclick="backToShop()">Back to Home</button>
-        </div>
-    </div>
-
-    <script src="assets/js/script.js"></script>
+            var box = document.getElementById('chatBox');
+            box.innerHTML += '<div class="chat-msg" style="margin-left:auto; background:#0088ff;">' + txt + '</div>';
+            document.getElementById('userMsg').value = '';
+            
+            setTimeout(function() {
+                box.innerHTML += '<div class="chat-msg chat-bot">Wait for response...</div>';
+                box.scrollTop = box.scrollHeight;
+            }, 1000);
+        }
+    </script>
 </body>
-                </html>
-    
+    </html>
+            
