@@ -3,33 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eklavya Mods Store</title>
+    <title>Welcome To Store</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #0d0d0d; color: #fff; text-align: center; }
-        
-        .page { display: none; padding: 20px; max-width: 500px; margin: 0 auto; }
+        body { background-color: #050505; color: #fff; text-align: center; min-height: 100vh; overflow-x: hidden; position: relative; }
+
+        .page { display: none; padding: 20px; max-width: 500px; margin: 0 auto; min-height: 100vh; position: relative; z-index: 2; }
         .active { display: block; }
 
-        /* Glowing & Neon Texts */
+        /* Welcome Page Styles */
+        .welcome-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
+            background: 
+                linear-gradient(135deg, rgba(255, 187, 0, 0.25) 0%, transparent 20%),
+                linear-gradient(315deg, rgba(255, 187, 0, 0.25) 0%, transparent 20%);
+        }
+
+        .top-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .admin-badge {
+            border: 1.5px solid #ffcc00; color: #ffcc00; padding: 4px 12px;
+            border-radius: 20px; font-weight: bold; font-size: 13px; background: rgba(0,0,0,0.6);
+            display: flex; align-items: center; gap: 5px; box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+        }
+
+        .hero-title { font-size: 32px; font-weight: 800; margin-top: 50px; margin-bottom: 10px; color: #ffffff; }
+        .hero-title span { color: #ffcc00; }
+        .divider { display: flex; align-items: center; justify-content: center; margin-bottom: 35px; }
+        .divider::before, .divider::after { content: ''; width: 60px; height: 1.5px; background: #ffcc00; }
+        .divider span { margin: 0 10px; font-size: 14px; }
+
+        /* Glowing Buttons Animation */
+        .btn-main {
+            width: 100%; padding: 15px; margin: 12px 0; border: none; border-radius: 14px;
+            font-weight: 800; font-size: 18px; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; gap: 12px; text-decoration: none;
+            position: relative; overflow: hidden; transition: transform 0.2s;
+        }
+        .btn-main:active { transform: scale(0.98); }
+
+        .btn-cc-glow {
+            background: linear-gradient(180deg, #ff1a1a 0%, #cc0000 100%);
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            animation: pulse-red 2s infinite;
+        }
+
+        .btn-panel-glow {
+            background: linear-gradient(180deg, #ffdb33 0%, #e6ac00 100%);
+            color: #000000;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            animation: pulse-yellow 2s infinite;
+        }
+
+        /* Shining shine effect overlay */
+        .btn-main::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(60deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(30deg); animation: shine 3s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.5); }
+            50% { box-shadow: 0 0 28px rgba(255, 0, 0, 0.9); }
+            100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.5); }
+        }
+        @keyframes pulse-yellow {
+            0% { box-shadow: 0 0 15px rgba(255, 204, 0, 0.5); }
+            50% { box-shadow: 0 0 28px rgba(255, 204, 0, 0.9); }
+            100% { box-shadow: 0 0 15px rgba(255, 204, 0, 0.5); }
+        }
+        @keyframes shine {
+            0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; }
+        }
+
+        /* Notice Box */
+        .notice-container { margin-top: 60px; padding: 15px; text-align: center; }
+        .notice-title { color: #ffcc00; font-size: 16px; font-weight: 800; letter-spacing: 2px; margin-bottom: 8px; text-shadow: 0 0 8px rgba(255, 204, 0, 0.5); }
+        .notice-text { color: #cccccc; font-size: 13.5px; line-height: 1.5; font-weight: 500; }
+
+        /* Store General Styles */
         .glow-white { color: #fff; text-shadow: 0 0 8px #fff, 0 0 15px #fff; font-weight: bold; margin: 8px 0; }
         .online-tag { color: #00ff66; text-shadow: 0 0 10px #00ff66; font-weight: bold; display: inline-block; margin-bottom: 15px; }
-
-        /* Buttons */
-        .btn { width: 100%; padding: 12px; margin: 8px 0; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; text-decoration: none; display: block; }
-        .btn-cc { background: #e60000; color: white; }
-        .btn-yellow { background: #ffcc00; color: #000; font-weight: 800; }
+        .btn-sub { width: 100%; padding: 12px; margin: 8px 0; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; text-decoration: none; display: block; }
         .btn-green { background: #00cc44; color: white; }
         .btn-blue-glow { background: #0088ff; color: white; box-shadow: 0 0 10px #0088ff; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; }
         .btn-white { background: #ffffff; color: #000; }
         .btn-support { background: #111; border: 1px solid #333; color: #fff; }
-
-        /* Cards & Dashboards */
         .card { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: center; }
         .media-banner { width: 100%; height: 180px; border-radius: 8px; background: #2a2a2a; object-fit: cover; }
-        
         .plan-box { background: #222; border: 1px solid #444; border-radius: 8px; padding: 12px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center; }
-
+        
         /* Chat Modal */
         .chat-modal { display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #141414; border-top: 2px solid #333; padding: 15px; z-index: 100; }
         .chat-box { height: 150px; overflow-y: auto; background: #000; border-radius: 5px; padding: 10px; text-align: left; margin-bottom: 10px; font-size: 14px; }
@@ -39,24 +106,42 @@
 </head>
 <body>
 
-    <!-- PAGE 1: Welcome Screen -->
+    <div class="welcome-bg"></div>
+
+    <!-- PAGE 1: Welcome Screen (Exactly like Screenshot) -->
     <div id="page1" class="page active">
-        <h2 style="margin-top: 40px; margin-bottom: 30px;">Welcome To Store</h2>
-        <button class="btn btn-cc" onclick="showPage('page2')">CC STORE</button>
-        <button class="btn btn-yellow" onclick="showPage('pagePanel')">PANEL STORE</button>
+        <div class="top-nav">
+            <div class="nav-title">🛒 Welcome To Store</div>
+            <div class="admin-badge">👑 Admin Shop [EK]</div>
+        </div>
+
+        <div class="hero-title">Welcome To <span>Store</span></div>
+        <div class="divider"><span>🛍️</span></div>
+
+        <button class="btn-main btn-cc-glow" onclick="showPage('page2')">
+            <span>🛒</span> <span>|</span> <span>CC STORE</span>
+        </button>
+
+        <button class="btn-main btn-panel-glow" onclick="showPage('pagePanel')">
+            <span>🏪</span> <span>|</span> <span>PANEL STORE</span>
+        </button>
+
+        <div class="notice-container">
+            <div class="notice-title">NOTICE</div>
+            <div class="notice-text">Ye site kebal FF and FFmax ka Panel provide Krti Hai.</div>
+        </div>
     </div>
 
-    <!-- PAGE 2: CC Store -->
+    <!-- PAGE 2: CC Store (Aapka Main Purana Shop Page) -->
     <div id="page2" class="page">
-        <h3>CC STORE</h3>
-        <p style="color: #aaa; margin: 20px 0;">Product cards & items here...</p>
-        <button class="btn btn-white" onclick="showPage('page1')">Back</button>
+        <h3 style="margin: 20px 0;">CC STORE</h3>
+        <p style="color: #aaa; margin: 20px 0;">Product cards & original shop items load here...</p>
+        <button class="btn-sub btn-white" onclick="showPage('page1')">Back</button>
     </div>
 
     <!-- PAGE 3: PANEL STORE DASHBOARD -->
     <div id="pagePanel" class="page">
-        <h2>PANEL STORE</h2>
-        <br>
+        <h2 style="margin-bottom: 20px;">PANEL STORE</h2>
 
         <!-- Dashboard 1 -->
         <div class="card">
@@ -64,7 +149,7 @@
                 <source src="assets/videos/panel1.mp4" type="video/mp4">
             </video>
             <div class="glow-white">Root Phone Panel [100% Antiban]<br><small>ALL DEVICE WORKING</small></div>
-            <button class="btn btn-green" onclick="showCheckout('Root Phone Panel')">Buy Now</button>
+            <button class="btn-sub btn-green" onclick="showCheckout('Root Phone Panel')">Buy Now</button>
         </div>
 
         <!-- Dashboard 2 -->
@@ -73,7 +158,7 @@
                 <source src="assets/videos/panel2.mp4" type="video/mp4">
             </video>
             <div class="glow-white">Mobile Emulator PaneL<br><small>[Support all device] [Antiban]</small></div>
-            <button class="btn btn-green" onclick="showCheckout('Mobile Emulator Panel')">Buy Now</button>
+            <button class="btn-sub btn-green" onclick="showCheckout('Mobile Emulator Panel')">Buy Now</button>
         </div>
 
         <!-- Dashboard 3 -->
@@ -82,7 +167,7 @@
                 <source src="assets/videos/banner_3.jpg">
             </video>
             <div class="glow-white">[Non Root PaneL]<br><small>ANTIBAN</small></div>
-            <button class="btn btn-green" onclick="showCheckout('Non Root Panel')">Buy Now</button>
+            <button class="btn-sub btn-green" onclick="showCheckout('Non Root Panel')">Buy Now</button>
         </div>
 
         <!-- Dashboard 4 -->
@@ -91,17 +176,17 @@
                 <source src="assets/videos/panel4.mp4" type="video/mp4">
             </video>
             <div class="glow-white">Emulator PaneL [100%]<br><small>ANTIBAN</small></div>
-            <button class="btn btn-green" onclick="showCheckout('Emulator Panel')">Buy Now</button>
+            <button class="btn-sub btn-green" onclick="showCheckout('Emulator Panel')">Buy Now</button>
         </div>
 
         <!-- Dashboard 5: FREE -->
         <div class="card">
             <img src="assets/images/banner_1.jpg" class="media-banner" alt="Free Panel">
             <div class="glow-white">[Antiban Hologram Location For Free.]</div>
-            <a href="https://www.mediafire.com" target="_blank" class="btn btn-green">Free</a>
+            <a href="https://www.mediafire.com" target="_blank" class="btn-sub btn-green">Free</a>
         </div>
 
-        <button class="btn btn-white" onclick="showPage('page1')">Back</button>
+        <button class="btn-sub btn-white" onclick="showPage('page1')">Back</button>
     </div>
 
     <!-- PAGE 4: CHECKOUT PAGE -->
@@ -132,9 +217,9 @@
 
         <br>
         <!-- Action Buttons -->
-        <a href="https://t.me/Error_files_og/130" target="_blank" class="btn btn-white">Setup Video</a>
-        <button class="btn btn-support" onclick="openChat()">Customer Support</button>
-        <button class="btn btn-white" onclick="showPage('pagePanel')">Back</button>
+        <a href="https://t.me/Error_files_og/130" target="_blank" class="btn-sub btn-white">Setup Video</a>
+        <button class="btn-sub btn-support" onclick="openChat()">Customer Support</button>
+        <button class="btn-sub btn-white" onclick="showPage('pagePanel')">Back</button>
     </div>
 
     <!-- CHAT BOX MODAL -->
@@ -166,7 +251,7 @@
 
         // Auto Payment Redirection (UPI)
         function payUPI(amount) {
-            var upiID = "9354505161@ybl"; // Updated UPI ID
+            var upiID = "9354505161@ybl";
             var name = "Eklavya Store";
             var url = "upi://pay?pa=" + upiID + "&pn=" + encodeURIComponent(name) + "&am=" + amount + "&cu=INR";
             window.location.href = url;
@@ -194,5 +279,4 @@
         }
     </script>
 </body>
-    </html>
-            
+</html>
