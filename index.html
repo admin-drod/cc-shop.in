@@ -8,7 +8,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #050505; color: #fff; text-align: center; min-height: 100vh; overflow-x: hidden; position: relative; }
 
-        .page { display: none; padding: 20px; max-width: 500px; margin: 0 auto; min-height: 100vh; position: relative; z-index: 2; }
+        .page { display: none; padding: 15px; max-width: 500px; margin: 0 auto; min-height: 100vh; position: relative; z-index: 2; }
         .active { display: block; }
 
         /* Welcome Page Styles */
@@ -101,18 +101,81 @@
             border-radius: 10px; cursor: pointer; box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
             transition: transform 0.2s; display: inline-block; width: 100%;
         }
-        .btn-modal-back:active { transform: scale(0.95); }
 
-        /* Store General Styles */
-        .glow-white { color: #fff; text-shadow: 0 0 8px #fff, 0 0 15px #fff; font-weight: bold; margin: 8px 0; }
-        .online-tag { color: #00ff66; text-shadow: 0 0 10px #00ff66; font-weight: bold; display: inline-block; margin-bottom: 15px; }
+        /* Store Header with Lighting Effects */
+        .panel-header-custom {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 5px 25px 5px;
+        }
+        .panel-title-glow {
+            font-size: 22px; font-weight: 900; color: #fff; text-transform: uppercase;
+            letter-spacing: 1.5px; text-shadow: 0 0 10px #ffcc00, 0 0 20px #ff8800, 0 0 30px #ff5500;
+            animation: textGlow 1.5s infinite alternate;
+        }
+        .online-status-container {
+            display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: bold;
+            background: rgba(20, 20, 20, 0.8); border: 1px solid #333; padding: 6px 12px; border-radius: 20px;
+        }
+        .red-dot-blinking {
+            width: 12px; height: 12px; background-color: #ff0000; border-radius: 50%;
+            box-shadow: 0 0 12px #ff0000, 0 0 20px #ff0000;
+            animation: blinkRed 1s infinite alternate;
+        }
+        .shop-icon { font-size: 18px; }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px #ffcc00, 0 0 20px #ff8800; }
+            100% { text-shadow: 0 0 18px #ffffff, 0 0 30px #ffcc00, 0 0 40px #ff3300; }
+        }
+        @keyframes blinkRed {
+            0% { opacity: 0.3; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Card with Red Glowing Border */
+        .card-red-glow {
+            background: #121212;
+            border: 2px solid #ff1a1a;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 0 18px rgba(255, 0, 0, 0.6), inset 0 0 10px rgba(255, 0, 0, 0.2);
+            animation: cardBorderGlow 2s infinite alternate;
+        }
+        @keyframes cardBorderGlow {
+            0% { box-shadow: 0 0 12px rgba(255, 0, 0, 0.5), inset 0 0 5px rgba(255, 0, 0, 0.2); }
+            100% { box-shadow: 0 0 25px rgba(255, 0, 0, 0.9), inset 0 0 15px rgba(255, 0, 0, 0.4); }
+        }
+
+        /* Buy Now Lightning Button */
+        .btn-lightning {
+            width: 100%; padding: 14px; margin-top: 12px; border: none; border-radius: 10px;
+            font-weight: 800; font-size: 18px; cursor: pointer; text-decoration: none;
+            display: block; background: linear-gradient(180deg, #00e64d 0%, #009933 100%);
+            color: #ffffff; text-shadow: 0 1px 2px #000;
+            position: relative; overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 230, 77, 0.6);
+        }
+        .btn-lightning::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            transform: skewX(-25deg); animation: lightningStrike 2s infinite;
+        }
+        @keyframes lightningStrike {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .media-banner { width: 100%; height: 200px; border-radius: 10px; object-fit: cover; background: #222; }
+        .glow-white { color: #fff; text-shadow: 0 0 8px #fff; font-weight: bold; margin: 12px 0 5px 0; font-size: 16px; }
+
         .btn-sub { width: 100%; padding: 12px; margin: 8px 0; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; text-decoration: none; display: block; }
         .btn-green { background: #00cc44; color: white; }
         .btn-blue-glow { background: #0088ff; color: white; box-shadow: 0 0 10px #0088ff; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; }
         .btn-white { background: #ffffff; color: #000; }
         .btn-support { background: #111; border: 1px solid #333; color: #fff; }
-        .card { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: center; }
-        .media-banner { width: 100%; height: 190px; border-radius: 8px; background: #2a2a2a; object-fit: cover; }
         .plan-box { background: #222; border: 1px solid #444; border-radius: 8px; padding: 12px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center; }
         
         /* Chat Modal */
@@ -161,50 +224,59 @@
 
     <!-- PAGE 2: PANEL STORE DASHBOARD -->
     <div id="pagePanel" class="page">
-        <h2 style="margin-bottom: 20px;">PANEL STORE</h2>
+        
+        <!-- Header: Glowing PANEL STORE (Left) | Red Light + Online + Shop Logo (Right) -->
+        <div class="panel-header-custom">
+            <div class="panel-title-glow">PANEL STORE</div>
+            <div class="online-status-container">
+                <div class="red-dot-blinking"></div>
+                <span style="color: #fff;">Online</span>
+                <span class="shop-icon">🛒</span>
+            </div>
+        </div>
 
         <!-- Dashboard 1: PHOTO -->
-        <div class="card">
+        <div class="card-red-glow">
             <img src="assets/images/photo1.jpg" class="media-banner" alt="Dashboard 1">
-            <div class="glow-white">Root Phone Panel [100% Antiban]<br><small>ALL DEVICE WORKING</small></div>
-            <button class="btn-sub btn-green" onclick="showCheckout('Root Phone Panel')">Buy Now</button>
+            <div class="glow-white">Root Phone Panel [100% Antiban]<br><small style="color: #bbb;">ALL DEVICE WORKING</small></div>
+            <button class="btn-lightning" onclick="showCheckout('Root Phone Panel')">Buy Now</button>
         </div>
 
         <!-- Dashboard 2: PHOTO -->
-        <div class="card">
+        <div class="card-red-glow">
             <img src="assets/images/photo2.jpg" class="media-banner" alt="Dashboard 2">
-            <div class="glow-white">Mobile Emulator PaneL<br><small>[Support all device] [Antiban]</small></div>
-            <button class="btn-sub btn-green" onclick="showCheckout('Mobile Emulator Panel')">Buy Now</button>
+            <div class="glow-white">Mobile Emulator PaneL<br><small style="color: #bbb;">[Support all device] [Antiban]</small></div>
+            <button class="btn-lightning" onclick="showCheckout('Mobile Emulator Panel')">Buy Now</button>
         </div>
 
         <!-- Dashboard 3: PHOTO -->
-        <div class="card">
+        <div class="card-red-glow">
             <img src="assets/images/photo3.jpg" class="media-banner" alt="Dashboard 3">
-            <div class="glow-white">[Non Root PaneL]<br><small>ANTIBAN</small></div>
-            <button class="btn-sub btn-green" onclick="showCheckout('Non Root Panel')">Buy Now</button>
+            <div class="glow-white">[Non Root PaneL]<br><small style="color: #bbb;">ANTIBAN</small></div>
+            <button class="btn-lightning" onclick="showCheckout('Non Root Panel')">Buy Now</button>
         </div>
 
         <!-- Dashboard 4: PHOTO -->
-        <div class="card">
+        <div class="card-red-glow">
             <img src="assets/images/photo4.jpg" class="media-banner" alt="Dashboard 4">
-            <div class="glow-white">Emulator PaneL [100%]<br><small>ANTIBAN</small></div>
-            <button class="btn-sub btn-green" onclick="showCheckout('Emulator Panel')">Buy Now</button>
+            <div class="glow-white">Emulator PaneL [100%]<br><small style="color: #bbb;">ANTIBAN</small></div>
+            <button class="btn-lightning" onclick="showCheckout('Emulator Panel')">Buy Now</button>
         </div>
 
         <!-- Dashboard 5: PHOTO -->
-        <div class="card">
+        <div class="card-red-glow">
             <img src="assets/images/photo5.jpg" class="media-banner" alt="Dashboard 5">
             <div class="glow-white">[Antiban Hologram Location For Free.]</div>
-            <a href="https://www.mediafire.com" target="_blank" class="btn-sub btn-green">Free</a>
+            <a href="https://www.mediafire.com" target="_blank" class="btn-lightning" style="text-align:center;">Free Download</a>
         </div>
 
-        <button class="btn-sub btn-white" onclick="showPage('page1')">Back</button>
+        <button class="btn-sub btn-white" onclick="showPage('page1')" style="margin-bottom: 20px;">Back</button>
     </div>
 
     <!-- PAGE 3: CHECKOUT PAGE -->
     <div id="pageCheckout" class="page">
-        <div style="text-align: left;">
-            <span class="online-tag">● Online</span>
+        <div style="text-align: left; margin-bottom: 15px;">
+            <span style="color: #00ff66; text-shadow: 0 0 10px #00ff66; font-weight: bold;">● Online</span>
         </div>
 
         <h3 id="selectedPanelTitle" style="margin-bottom: 15px;">Panel Checkout</h3>
@@ -281,7 +353,7 @@
         function openChat() {
             document.getElementById('chatModal').style.display = 'block';
         }
-        closeChat = function() {
+        function closeChat() {
             document.getElementById('chatModal').style.display = 'none';
         }
         function sendMsg() {
@@ -299,5 +371,5 @@
         }
     </script>
 </body>
-                </html>
-                                                                 
+                                      </html>
+    
