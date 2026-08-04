@@ -3,198 +3,458 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome To Store</title>
+    <title>EKLAVYA MODS - Official Store</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #050505; color: #fff; text-align: center; min-height: 100vh; overflow-x: hidden; position: relative; }
-
-        .page { display: none; padding: 15px; max-width: 500px; margin: 0 auto; min-height: 100vh; position: relative; z-index: 2; }
-        .active { display: block; }
-
-        /* Welcome Page Styles */
-        .welcome-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
-            background: 
-                linear-gradient(135deg, rgba(255, 187, 0, 0.25) 0%, transparent 20%),
-                linear-gradient(315deg, rgba(255, 187, 0, 0.25) 0%, transparent 20%);
+        :root {
+            --bg-main: #05070d;
+            --card-bg: rgba(18, 24, 38, 0.7);
+            --gold-glow: #ffb700;
+            --red-glow: #ff2a2a;
+            --blue-glow: #00d2ff;
+            --green-glow: #00ff66;
+            --border-glow: rgba(255, 255, 255, 0.1);
         }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: #ffffff;
+            text-align: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 42, 42, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 210, 255, 0.1) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* Screen Pages Container */
+        .page {
+            display: none;
+            padding: 20px 15px 90px 15px;
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            z-index: 10;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .active {
+            display: block !important;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- PAGE 1: WELCOME SCREEN --- */
         .top-nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 5px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .nav-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
-        .admin-badge {
-            border: 1.5px solid #ffcc00; color: #ffcc00; padding: 4px 12px;
-            border-radius: 20px; font-weight: bold; font-size: 13px; background: rgba(0,0,0,0.6);
-            display: flex; align-items: center; gap: 5px; box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            margin-bottom: 25px;
         }
 
-        .hero-title { font-size: 32px; font-weight: 800; margin-top: 50px; margin-bottom: 10px; color: #ffffff; }
-        .hero-title span { color: #ffcc00; }
-        .divider { display: flex; align-items: center; justify-content: center; margin-bottom: 35px; }
-        .divider::before, .divider::after { content: ''; width: 60px; height: 1.5px; background: #ffcc00; }
+        .nav-title {
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .admin-badge {
+            border: 1px solid var(--gold-glow);
+            color: var(--gold-glow);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 11px;
+            background: rgba(255, 183, 0, 0.1);
+            box-shadow: 0 0 12px rgba(255, 183, 0, 0.2);
+        }
+
+        .hero-title {
+            font-size: 32px;
+            font-weight: 900;
+            margin-top: 30px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-title span {
+            color: var(--gold-glow);
+            text-shadow: 0 0 15px rgba(255, 183, 0, 0.6);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 35px;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-glow));
+        }
+        .divider::after {
+            background: linear-gradient(270deg, transparent, var(--gold-glow));
+        }
+
         .divider span { margin: 0 10px; font-size: 14px; }
 
-        /* Glowing Buttons Animation */
+        /* Main Glowing Buttons */
         .btn-main {
-            width: 100%; padding: 15px; margin: 12px 0; border: none; border-radius: 14px;
-            font-weight: 800; font-size: 18px; cursor: pointer; display: flex;
-            align-items: center; justify-content: center; gap: 12px; text-decoration: none;
-            position: relative; overflow: hidden; transition: transform 0.2s;
+            width: 100%;
+            padding: 16px;
+            margin: 14px 0;
+            border: none;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            z-index: 20;
         }
+
         .btn-main:active { transform: scale(0.98); }
 
         .btn-cc-glow {
-            background: linear-gradient(180deg, #ff1a1a 0%, #cc0000 100%);
+            background: linear-gradient(135deg, #ff1a1a 0%, #990000 100%);
             color: #ffffff;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            animation: pulse-red 2s infinite;
+            box-shadow: 0 0 20px rgba(255, 26, 26, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .btn-panel-glow {
-            background: linear-gradient(180deg, #ffdb33 0%, #e6ac00 100%);
+            background: linear-gradient(135deg, #ffc800 0%, #b38b00 100%);
             color: #000000;
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-            animation: pulse-yellow 2s infinite;
-        }
-
-        .btn-main::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(60deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: rotate(30deg); animation: shine 3s infinite;
-        }
-
-        @keyframes pulse-red {
-            0% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.5); }
-            50% { box-shadow: 0 0 28px rgba(255, 0, 0, 0.9); }
-            100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.5); }
-        }
-        @keyframes pulse-yellow {
-            0% { box-shadow: 0 0 15px rgba(255, 204, 0, 0.5); }
-            50% { box-shadow: 0 0 28px rgba(255, 204, 0, 0.9); }
-            100% { box-shadow: 0 0 15px rgba(255, 204, 0, 0.5); }
-        }
-        @keyframes shine {
-            0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; }
+            box-shadow: 0 0 20px rgba(255, 200, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         /* Notice Box */
-        .notice-container { margin-top: 60px; padding: 15px; text-align: center; }
-        .notice-title { color: #ffcc00; font-size: 16px; font-weight: 800; letter-spacing: 2px; margin-bottom: 8px; text-shadow: 0 0 8px rgba(255, 204, 0, 0.5); }
-        .notice-text { color: #cccccc; font-size: 13.5px; line-height: 1.5; font-weight: 500; }
-
-        /* Popup Modal Styles */
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); z-index: 200; align-items: center; justify-content: center;
-        }
-        .modal-content {
-            background: #151515; border: 1.5px solid #ff1a1a; padding: 25px; border-radius: 16px;
-            width: 85%; max-width: 380px; text-align: center; box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
-        }
-        .modal-title { font-size: 22px; font-weight: bold; margin-bottom: 12px; color: #fff; }
-        .modal-msg { font-size: 16px; color: #bbb; margin-bottom: 25px; line-height: 1.4; }
-        .btn-modal-back {
-            background: linear-gradient(180deg, #ff1a1a 0%, #b30000 100%);
-            color: #fff; font-size: 16px; font-weight: bold; padding: 12px 30px; border: none;
-            border-radius: 10px; cursor: pointer; box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
-            transition: transform 0.2s; display: inline-block; width: 100%;
-        }
-
-        /* Store Header with Lighting Effects */
-        .panel-header-custom {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 10px 5px 25px 5px;
-        }
-        .panel-title-glow {
-            font-size: 22px; font-weight: 900; color: #fff; text-transform: uppercase;
-            letter-spacing: 1.5px; text-shadow: 0 0 10px #ffcc00, 0 0 20px #ff8800, 0 0 30px #ff5500;
-            animation: textGlow 1.5s infinite alternate;
-        }
-        .online-status-container {
-            display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: bold;
-            background: rgba(20, 20, 20, 0.8); border: 1px solid #333; padding: 6px 12px; border-radius: 20px;
-        }
-        .red-dot-blinking {
-            width: 12px; height: 12px; background-color: #ff0000; border-radius: 50%;
-            box-shadow: 0 0 12px #ff0000, 0 0 20px #ff0000;
-            animation: blinkRed 1s infinite alternate;
-        }
-        .shop-icon { font-size: 18px; }
-
-        @keyframes textGlow {
-            0% { text-shadow: 0 0 10px #ffcc00, 0 0 20px #ff8800; }
-            100% { text-shadow: 0 0 18px #ffffff, 0 0 30px #ffcc00, 0 0 40px #ff3300; }
-        }
-        @keyframes blinkRed {
-            0% { opacity: 0.3; transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1.2); }
-        }
-
-        /* Card with Red Glowing Border */
-        .card-red-glow {
-            background: #121212;
-            border: 2px solid #ff1a1a;
-            border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 25px;
+        .notice-container {
+            margin-top: 40px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-glow);
+            border-radius: 14px;
             text-align: center;
-            box-shadow: 0 0 18px rgba(255, 0, 0, 0.6), inset 0 0 10px rgba(255, 0, 0, 0.2);
-            animation: cardBorderGlow 2s infinite alternate;
-        }
-        @keyframes cardBorderGlow {
-            0% { box-shadow: 0 0 12px rgba(255, 0, 0, 0.5), inset 0 0 5px rgba(255, 0, 0, 0.2); }
-            100% { box-shadow: 0 0 25px rgba(255, 0, 0, 0.9), inset 0 0 15px rgba(255, 0, 0, 0.4); }
         }
 
-        /* Buy Now Lightning Button */
+        .notice-title {
+            color: var(--gold-glow);
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+
+        .notice-text { color: #aaaaaa; font-size: 13px; line-height: 1.5; }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #121622;
+            border: 1px solid var(--red-glow);
+            padding: 25px;
+            border-radius: 20px;
+            width: 85%;
+            max-width: 360px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 42, 42, 0.3);
+        }
+
+        .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+        .modal-msg { font-size: 14px; color: #bbbbbb; margin-bottom: 20px; }
+
+        .btn-modal-back {
+            background: linear-gradient(135deg, #ff2a2a, #990000);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 0 15px rgba(255, 42, 42, 0.5);
+        }
+
+        /* --- PAGE 2: PANEL STORE --- */
+        .panel-header-custom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0 20px 0;
+        }
+
+        .panel-title-glow {
+            font-size: 20px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        .online-status-container {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            background: rgba(0, 255, 102, 0.1);
+            border: 1px solid rgba(0, 255, 102, 0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            color: var(--green-glow);
+        }
+
+        .red-dot-blinking {
+            width: 8px;
+            height: 8px;
+            background-color: var(--green-glow);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--green-glow);
+        }
+
+        .card-red-glow {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 42, 42, 0.4);
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            transition: border-color 0.3s;
+        }
+
+        .card-red-glow:hover {
+            border-color: var(--red-glow);
+        }
+
+        .media-banner {
+            width: 100%;
+            height: 180px;
+            border-radius: 12px;
+            object-fit: cover;
+            background: #1a202c;
+        }
+
+        .glow-white {
+            color: #fff;
+            font-weight: 800;
+            margin: 12px 0 6px 0;
+            font-size: 15px;
+        }
+
         .btn-lightning {
-            width: 100%; padding: 14px; margin-top: 12px; border: none; border-radius: 10px;
-            font-weight: 800; font-size: 18px; cursor: pointer; text-decoration: none;
-            display: block; background: linear-gradient(180deg, #00e64d 0%, #009933 100%);
-            color: #ffffff; text-shadow: 0 1px 2px #000;
-            position: relative; overflow: hidden;
-            box-shadow: 0 0 15px rgba(0, 230, 77, 0.6);
-        }
-        .btn-lightning::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-            transform: skewX(-25deg); animation: lightningStrike 2s infinite;
-        }
-        @keyframes lightningStrike {
-            0% { left: -100%; }
-            20% { left: 100%; }
-            100% { left: 100%; }
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            background: linear-gradient(135deg, #00e64d 0%, #00802b 100%);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 230, 77, 0.4);
+            z-index: 20;
         }
 
-        .media-banner { width: 100%; height: 200px; border-radius: 10px; object-fit: cover; background: #222; }
-        .glow-white { color: #fff; text-shadow: 0 0 8px #fff; font-weight: bold; margin: 12px 0 5px 0; font-size: 16px; }
+        .btn-sub {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            display: block;
+            z-index: 20;
+        }
 
-        .btn-sub { width: 100%; padding: 12px; margin: 8px 0; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; text-decoration: none; display: block; }
-        .btn-green { background: #00cc44; color: white; }
-        .btn-blue-glow { background: #0088ff; color: white; box-shadow: 0 0 10px #0088ff; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; }
         .btn-white { background: #ffffff; color: #000; }
-        .btn-support { background: #111; border: 1px solid #333; color: #fff; }
-        .plan-box { background: #222; border: 1px solid #444; border-radius: 8px; padding: 12px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center; }
-        
-        /* Chat Modal */
-        .chat-modal { display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #141414; border-top: 2px solid #333; padding: 15px; z-index: 100; }
-        .chat-box { height: 150px; overflow-y: auto; background: #000; border-radius: 5px; padding: 10px; text-align: left; margin-bottom: 10px; font-size: 14px; }
-        .chat-msg { margin: 5px 0; padding: 5px 8px; border-radius: 4px; background: #222; width: fit-content; }
-        .chat-bot { background: #0055ff; color: white; }
+
+        /* --- PAGE 3: CHECKOUT PAGE --- */
+        #pageCheckout { text-align: left; }
+
+        .ui-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-glow);
+        }
+
+        .ui-brand-title { font-size: 16px; font-weight: 800; color: #fff; }
+        .ui-brand-sub { font-size: 11px; color: #888888; }
+
+        .ui-stats-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .ui-stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glow);
+            border-radius: 10px;
+            padding: 10px 8px;
+            text-align: center;
+        }
+
+        .ui-stat-label { font-size: 10px; color: #888888; }
+        .ui-stat-val { font-size: 13px; font-weight: bold; color: #fff; margin-top: 2px; }
+
+        .plan-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 14px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .plan-box span { font-size: 14px; font-weight: bold; }
+
+        .btn-blue-glow {
+            background: linear-gradient(135deg, #0088ff, #0044cc);
+            color: white;
+            box-shadow: 0 0 12px rgba(0, 136, 255, 0.4);
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 12px;
+            z-index: 20;
+        }
+
+        /* Bottom Fixed Navigation Bar */
+        .bottom-nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 23, 0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border-glow);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            color: #666666;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .nav-item.active-nav { color: var(--gold-glow); }
+
+        /* Chat Modal Box */
+        .chat-modal {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #0d111a;
+            border-top: 2px solid var(--border-glow);
+            padding: 16px;
+            z-index: 999;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .chat-box {
+            height: 140px;
+            overflow-y: auto;
+            background: #05070d;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: left;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .chat-msg {
+            margin: 6px 0;
+            padding: 6px 10px;
+            border-radius: 6px;
+            background: #1a202c;
+            width: fit-content;
+        }
+
+        .chat-bot { background: #0066ff; color: white; }
     </style>
 </head>
 <body>
 
-    <div class="welcome-bg"></div>
-
-    <!-- CC Store Popup Modal -->
+    <!-- CC Popup Modal -->
     <div id="ccPopup" class="modal-overlay">
         <div class="modal-content">
-            <div class="modal-title">Sorry Bro 😐</div>
-            <div class="modal-msg">Cards Are Currently unavailable.</div>
-            <button class="btn-modal-back" onclick="closeCCPopup()">BACK</button>
+            <div class="modal-title">Notice 😐</div>
+            <div class="modal-msg">Cards Are Currently Unavailable.</div>
+            <button class="btn-modal-back" id="btnCloseCC">BACK</button>
         </div>
     </div>
 
@@ -208,11 +468,11 @@
         <div class="hero-title">Welcome To <span>Store</span></div>
         <div class="divider"><span>🛍️</span></div>
 
-        <button class="btn-main btn-cc-glow" onclick="openCCPopup()">
+        <button class="btn-main btn-cc-glow" id="btnCCStore">
             <span>🛒</span> <span>|</span> <span>CC STORE</span>
         </button>
 
-        <button class="btn-main btn-panel-glow" onclick="showPage('pagePanel')">
+        <button class="btn-main btn-panel-glow" id="btnPanelStore">
             <span>🏪</span> <span>|</span> <span>PANEL STORE</span>
         </button>
 
@@ -224,152 +484,211 @@
 
     <!-- PAGE 2: PANEL STORE DASHBOARD -->
     <div id="pagePanel" class="page">
-        
-        <!-- Header -->
         <div class="panel-header-custom">
             <div class="panel-title-glow">PANEL STORE</div>
             <div class="online-status-container">
                 <div class="red-dot-blinking"></div>
-                <span style="color: #fff;">Online</span>
-                <span class="shop-icon">🛒</span>
+                <span>Online</span>
+                <span>🛒</span>
             </div>
         </div>
 
-        <!-- Dashboard 1: PHOTO -->
+        <!-- Dashboard Cards -->
         <div class="card-red-glow">
-            <img src="assets/images/photo1.jpg" class="media-banner" alt="Dashboard 1">
-            <div class="glow-white">Root Phone Panel [100% Antiban]<br><small style="color: #bbb;">ALL DEVICE WORKING</small></div>
-            <button class="btn-lightning" onclick="showCheckout('Root Phone Panel')">Buy Now</button>
+            <img src="assets/images/photo1.jpg" class="media-banner" alt="Dashboard 1" onerror="this.src='https://via.placeholder.com/400x200/121826/ffffff?text=Root+Panel'">
+            <div class="glow-white">Root Phone Panel [100% Antiban]<br><small style="color: #bbb; font-weight: normal;">ALL DEVICE WORKING</small></div>
+            <button class="btn-lightning btn-buy-panel" data-title="Root Phone Panel">Buy Now</button>
         </div>
 
-        <!-- Dashboard 2: PHOTO -->
         <div class="card-red-glow">
-            <img src="assets/images/photo2.jpg" class="media-banner" alt="Dashboard 2">
-            <div class="glow-white">Mobile Emulator PaneL<br><small style="color: #bbb;">[Support all device] [Antiban]</small></div>
-            <button class="btn-lightning" onclick="showCheckout('Mobile Emulator Panel')">Buy Now</button>
+            <img src="assets/images/photo2.jpg" class="media-banner" alt="Dashboard 2" onerror="this.src='https://via.placeholder.com/400x200/121826/ffffff?text=Mobile+Emulator+Panel'">
+            <div class="glow-white">Mobile Emulator PaneL<br><small style="color: #bbb; font-weight: normal;">[Support all device] [Antiban]</small></div>
+            <button class="btn-lightning btn-buy-panel" data-title="Mobile Emulator Panel">Buy Now</button>
         </div>
 
-        <!-- Dashboard 3: PHOTO -->
         <div class="card-red-glow">
-            <img src="assets/images/photo3.jpg" class="media-banner" alt="Dashboard 3">
-            <div class="glow-white">[Non Root PaneL]<br><small style="color: #bbb;">ANTIBAN</small></div>
-            <button class="btn-lightning" onclick="showCheckout('Non Root Panel')">Buy Now</button>
+            <img src="assets/images/photo3.jpg" class="media-banner" alt="Dashboard 3" onerror="this.src='https://via.placeholder.com/400x200/121826/ffffff?text=Non+Root+Panel'">
+            <div class="glow-white">[Non Root PaneL]<br><small style="color: #bbb; font-weight: normal;">ANTIBAN</small></div>
+            <button class="btn-lightning btn-buy-panel" data-title="Non Root Panel">Buy Now</button>
         </div>
 
-        <!-- Dashboard 4: PHOTO -->
         <div class="card-red-glow">
-            <img src="assets/images/photo4.jpg" class="media-banner" alt="Dashboard 4">
-            <div class="glow-white">Emulator PaneL [100%]<br><small style="color: #bbb;">ANTIBAN</small></div>
-            <button class="btn-lightning" onclick="showCheckout('Emulator Panel')">Buy Now</button>
+            <img src="assets/images/photo4.jpg" class="media-banner" alt="Dashboard 4" onerror="this.src='https://via.placeholder.com/400x200/121826/ffffff?text=Emulator+Panel'">
+            <div class="glow-white">Emulator PaneL [100%]<br><small style="color: #bbb; font-weight: normal;">ANTIBAN</small></div>
+            <button class="btn-lightning btn-buy-panel" data-title="Emulator Panel">Buy Now</button>
         </div>
 
-        <!-- Dashboard 5: PHOTO (DOWNLOAD LINK ADDED HERE) -->
         <div class="card-red-glow">
-            <img src="assets/images/photo5.jpg" class="media-banner" alt="Dashboard 5">
+            <img src="assets/images/photo5.jpg" class="media-banner" alt="Dashboard 5" onerror="this.src='https://via.placeholder.com/400x200/121826/ffffff?text=Free+Hologram'">
             <div class="glow-white">[Antiban Hologram Location For Free.]</div>
             <a href="https://www.mediafire.com/file/s3xdb4f1s0j9awe/CLONER+V57+OG.apk/file" target="_blank" class="btn-lightning" style="text-align:center; text-decoration:none;">Free Download</a>
         </div>
 
-        <button class="btn-sub btn-white" onclick="showPage('page1')" style="margin-bottom: 20px;">Back</button>
+        <button class="btn-sub btn-white btn-nav-back1">Back To Home</button>
     </div>
 
     <!-- PAGE 3: CHECKOUT PAGE -->
     <div id="pageCheckout" class="page">
-        <div style="text-align: left; margin-bottom: 15px;">
-            <span style="color: #00ff66; text-shadow: 0 0 10px #00ff66; font-weight: bold;">● Online</span>
+        <div class="ui-top-bar">
+            <div>
+                <div class="ui-brand-title" id="selectedPanelTitle">Root Phone Panel</div>
+                <div class="ui-brand-sub">Smart • Secure • Instant Access</div>
+            </div>
+            <div style="color: var(--green-glow); font-size: 12px; font-weight: bold;">● Online</div>
         </div>
 
-        <h3 id="selectedPanelTitle" style="margin-bottom: 15px;">Panel Checkout</h3>
-
-        <!-- Pricing Boxes -->
-        <div class="plan-box">
-            <span>1 Day - <b>Rs-80</b></span>
-            <button class="btn-blue-glow" onclick="payUPI(80)">Purchase Now</button>
-        </div>
-        <div class="plan-box">
-            <span>5 Day - <b>Rs-130</b></span>
-            <button class="btn-blue-glow" onclick="payUPI(130)">Purchase Now</button>
-        </div>
-        <div class="plan-box">
-            <span>15 Day - <b>Rs-215</b></span>
-            <button class="btn-blue-glow" onclick="payUPI(215)">Purchase Now</button>
-        </div>
-        <div class="plan-box">
-            <span>30 Day - <b>Rs-400</b></span>
-            <button class="btn-blue-glow" onclick="payUPI(400)">Purchase Now</button>
+        <div class="ui-stats-row">
+            <div class="ui-stat-card">
+                <div class="ui-stat-label">Active Users</div>
+                <div class="ui-stat-val">1,248</div>
+            </div>
+            <div class="ui-stat-card">
+                <div class="ui-stat-label">Status</div>
+                <div class="ui-stat-val" style="color:var(--green-glow);">Working</div>
+            </div>
+            <div class="ui-stat-card">
+                <div class="ui-stat-label">Success Rate</div>
+                <div class="ui-stat-val">99.2%</div>
+            </div>
         </div>
 
-        <br>
-        <!-- Action Buttons -->
-        <a href="https://t.me/Error_files_og/130" target="_blank" class="btn-sub btn-white">Setup Video</a>
-        <button class="btn-sub btn-support" onclick="openChat()">Customer Support</button>
-        <button class="btn-sub btn-white" onclick="showPage('pagePanel')">Back</button>
+        <div style="margin: 20px 0 10px 0; font-weight: bold; font-size: 15px;">Choose Plan Period:</div>
+
+        <div class="plan-box">
+            <span>1 Day Access - <b style="color:var(--gold-glow);">Rs-80</b></span>
+            <button class="btn-blue-glow btn-pay" data-amount="80">Purchase Now</button>
+        </div>
+        <div class="plan-box">
+            <span>5 Day Access - <b style="color:var(--gold-glow);">Rs-130</b></span>
+            <button class="btn-blue-glow btn-pay" data-amount="130">Purchase Now</button>
+        </div>
+        <div class="plan-box">
+            <span>15 Day Access - <b style="color:var(--gold-glow);">Rs-215</b></span>
+            <button class="btn-blue-glow btn-pay" data-amount="215">Purchase Now</button>
+        </div>
+        <div class="plan-box">
+            <span>30 Day Access - <b style="color:var(--gold-glow);">Rs-400</b></span>
+            <button class="btn-blue-glow btn-pay" data-amount="400">Purchase Now</button>
+        </div>
+
+        <a href="https://t.me/Error_files_og/130" target="_blank" class="btn-sub btn-white" style="text-align:center; text-decoration:none; margin-top:20px;">Watch Setup Video</a>
+        <button class="btn-sub btn-white btn-open-chat" style="background:#1a202c; color:#fff; border:1px solid var(--border-glow);">Customer Support</button>
+        <button class="btn-sub btn-white btn-nav-panel">Back To Store</button>
     </div>
 
-    <!-- CHAT BOX MODAL -->
+    <!-- Bottom Navigation Bar -->
+    <div class="bottom-nav-bar">
+        <div class="nav-item active-nav btn-nav-back1">
+            <span style="font-size:16px;">🏠</span>
+            <span>Home</span>
+        </div>
+        <div class="nav-item btn-nav-panel">
+            <span style="font-size:16px;">🏪</span>
+            <span>Store</span>
+        </div>
+        <div class="nav-item btn-open-chat">
+            <span style="font-size:16px;">🎧<span>
+            <span>Support</span>
+        </div>
+    </div>
+
+    <!-- Support Chat Modal -->
     <div id="chatModal" class="chat-modal">
         <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-            <b>Support Chat</b>
-            <span style="cursor:pointer;" onclick="closeChat()">✖</span>
+            <b style="font-size: 14px;">Support Chat</b>
+            <span style="cursor:pointer; font-weight:bold;" id="btnCloseChat">✖</span>
         </div>
         <div id="chatBox" class="chat-box">
             <div class="chat-msg chat-bot">Apna problem batao English mai.</div>
         </div>
-        <div style="display:flex; gap: 5px;">
-            <input type="text" id="userMsg" placeholder="Type your issue..." style="flex:1; padding: 8px; border-radius: 4px; border: 1px solid #333; background: #222; color: #fff;">
-            <button onclick="sendMsg()" style="padding: 8px 15px; background: #00cc44; border: none; color: white; border-radius: 4px;">Send</button>
+        <div style="display:flex; gap: 6px;">
+            <input type="text" id="userMsg" placeholder="Type your message..." style="flex:1; padding: 10px; border-radius: 6px; border: 1px solid #333; background: #1a202c; color: #fff; font-size:13px;">
+            <button id="btnSendChat" style="padding: 10px 16px; background: #00cc44; border: none; color: white; border-radius: 6px; font-weight: bold; cursor:pointer;">Send</button>
         </div>
     </div>
 
+    <!-- JAVASCRIPT EVENT LOGIC -->
     <script>
-        // Page Navigation
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-        }
-
-        // Popup Handlers
-        function openCCPopup() {
-            document.getElementById('ccPopup').style.display = 'flex';
-        }
-        function closeCCPopup() {
-            document.getElementById('ccPopup').style.display = 'none';
-        }
-
-        function showCheckout(title) {
-            document.getElementById('selectedPanelTitle').innerText = title;
-            showPage('pageCheckout');
-        }
-
-        // Auto Payment Redirection (UPI)
-        function payUPI(amount) {
-            var upiID = "9354505161@ybl";
-            var name = "Eklavya Store";
-            var url = "upi://pay?pa=" + upiID + "&pn=" + encodeURIComponent(name) + "&am=" + amount + "&cu=INR";
-            window.location.href = url;
-        }
-
-        // Chat Box Functionality
-        function openChat() {
-            document.getElementById('chatModal').style.display = 'block';
-        }
-        function closeChat() {
-            document.getElementById('chatModal').style.display = 'none';
-        }
-        function sendMsg() {
-            var txt = document.getElementById('userMsg').value;
-            if(txt.trim() === "") return;
+        document.addEventListener('DOMContentLoaded', function() {
             
-            var box = document.getElementById('chatBox');
-            box.innerHTML += '<div class="chat-msg" style="margin-left:auto; background:#0088ff;">' + txt + '</div>';
-            document.getElementById('userMsg').value = '';
-            
-            setTimeout(function() {
-                box.innerHTML += '<div class="chat-msg chat-bot">Wait for response...</div>';
-                box.scrollTop = box.scrollHeight;
-            }, 1000);
-        }
+            // Screen Navigation
+            function showPage(pageId) {
+                var pages = document.querySelectorAll('.page');
+                pages.forEach(function(p) { p.classList.remove('active'); });
+                var target = document.getElementById(pageId);
+                if(target) {
+                    target.classList.add('active');
+                    window.scrollTo(0, 0);
+                }
+            }
+
+            // Popup Actions
+            document.getElementById('btnCCStore').addEventListener('click', function() {
+                document.getElementById('ccPopup').style.display = 'flex';
+            });
+
+            document.getElementById('btnCloseCC').addEventListener('click', function() {
+                document.getElementById('ccPopup').style.display = 'none';
+            });
+
+            // Store Navigation
+            document.getElementById('btnPanelStore').addEventListener('click', function() {
+                showPage('pagePanel');
+            });
+
+            document.querySelectorAll('.btn-nav-back1').forEach(function(btn) {
+                btn.addEventListener('click', function() { showPage('page1'); });
+            });
+
+            document.querySelectorAll('.btn-nav-panel').forEach(function(btn) {
+                btn.addEventListener('click', function() { showPage('pagePanel'); });
+            });
+
+            // Dashboard to Checkout Page Switch
+            document.querySelectorAll('.btn-buy-panel').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var title = this.getAttribute('data-title');
+                    document.getElementById('selectedPanelTitle').innerText = title;
+                    showPage('pageCheckout');
+                });
+            });
+
+            // UPI Auto Redirection
+            document.querySelectorAll('.btn-pay').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var amount = this.getAttribute('data-amount');
+                    var upiID = "9354505161@ybl";
+                    var name = "Eklavya Store";
+                    window.location.href = "upi://pay?pa=" + upiID + "&pn=" + encodeURIComponent(name) + "&am=" + amount + "&cu=INR";
+                });
+            });
+
+            // Chat Functions
+            document.querySelectorAll('.btn-open-chat').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    document.getElementById('chatModal').style.display = 'block';
+                });
+            });
+
+            document.getElementById('btnCloseChat').addEventListener('click', function() {
+                document.getElementById('chatModal').style.display = 'none';
+            });
+
+            document.getElementById('btnSendChat').addEventListener('click', function() {
+                var input = document.getElementById('userMsg');
+                var txt = input.value;
+                if(txt.trim() === "") return;
+                
+                var box = document.getElementById('chatBox');
+                box.innerHTML += '<div class="chat-msg" style="margin-left:auto; background:#0088ff;">' + txt + '</div>';
+                input.value = '';
+                
+                setTimeout(function() {
+                    box.innerHTML += '<div class="chat-msg chat-bot">Wait for response...</div>';
+                    box.scrollTop = box.scrollHeight;
+                }, 1000);
+            });
+        });
     </script>
 </body>
     </html>
-    
